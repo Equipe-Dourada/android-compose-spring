@@ -1,23 +1,19 @@
-package com.stp.pacientes.model;
+package com.stp.pacientes.dto;
 
-import jakarta.persistence.*;
+import com.stp.pacientes.model.Endereco;
+import com.stp.pacientes.model.Ficha;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Paciente {
-    @Id
-    @Column(length = 11, nullable = false, unique = true)
+public class PacienteDTO {
     private String cpf;
     private String nome;
     private String telefone;
     private String email;
-    @Embedded
     private Endereco endereco;
-    @OneToOne(cascade = CascadeType.ALL)
     private Ficha ficha;
 }
