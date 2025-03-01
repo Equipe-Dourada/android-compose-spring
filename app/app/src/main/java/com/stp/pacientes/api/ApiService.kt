@@ -5,6 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 
 interface ApiService {
-    @GET("pacientes")
+    @GET("csrf")
     fun login(@Header("Authorization") authHeader: String): Call<Void>
 }
