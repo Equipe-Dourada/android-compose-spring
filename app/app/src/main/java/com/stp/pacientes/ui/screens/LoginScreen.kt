@@ -56,9 +56,9 @@ fun LoginScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-                val authHeader = RetrofitClient.getAuthHeader(username, password)
+                RetrofitClient.setCredentials(username, password)
                 CoroutineScope(Dispatchers.Main).launch {
-                    RetrofitClient.instance.login(authHeader).enqueue(object : Callback<Void> {
+                    RetrofitClient.instance.login().enqueue(object : Callback<Void> {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             CoroutineScope(Dispatchers.Main).launch {
                                 if (response.isSuccessful) {
