@@ -36,9 +36,7 @@ public class PacienteService {
         return toDTO(pacienteRepository.save(paciente));
     }
 
-    public void deletar(String id) {
-        pacienteRepository.deleteById(id);
-    }
+    public void deletar(String id) { pacienteRepository.deleteById(id); }
 
     private PacienteDTO toDTO(Paciente paciente) {
         return new PacienteDTO(

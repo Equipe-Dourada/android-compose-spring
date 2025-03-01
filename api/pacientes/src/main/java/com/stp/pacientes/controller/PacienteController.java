@@ -11,13 +11,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/pacientes")
 public class PacienteController {
-
     private final PacienteService service;
 
     @GetMapping
-    public List<PacienteDTO> listar() {
-        return service.listarTodos();
-    }
+    public List<PacienteDTO> listar() { return service.listarTodos(); }
 
     @GetMapping("/{cpf}")
     public ResponseEntity<PacienteDTO> obter(@PathVariable String cpf) {
