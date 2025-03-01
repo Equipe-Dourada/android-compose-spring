@@ -1,5 +1,6 @@
 package com.stp.pacientes.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import org.springframework.security.web.csrf.CsrfToken;
 public class CsrfController {
 
     @GetMapping
-    public @ResponseBody CsrfToken csrf(CsrfToken token) {
-        return token;
+    public void csrf(CsrfToken token, HttpServletResponse response) {
+        response.setHeader("X-CSRF-Token", token.getToken());
     }
 }

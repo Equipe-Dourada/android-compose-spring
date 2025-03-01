@@ -62,6 +62,10 @@ fun LoginScreen(navController: NavController) {
                         override fun onResponse(call: Call<Void>, response: Response<Void>) {
                             CoroutineScope(Dispatchers.Main).launch {
                                 if (response.isSuccessful) {
+                                    val csrfToken = response.headers()["X-CSRF-TOKEN"]
+                                    if (csrfToken != null) {
+                                        RetrofitClient.csrfToken = csrfToken
+                                    }
                                     Toast.makeText(context, "Login bem-sucedido", Toast.LENGTH_SHORT).show()
                                     navController.navigate("home")
                                 } else {

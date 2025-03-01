@@ -8,7 +8,11 @@ import java.util.Base64
 object RetrofitClient {
     private const val BASE_URL = "http://10.0.2.2:8080/api/"
 
-    private val client = OkHttpClient.Builder().build()
+    var csrfToken: String? = null
+
+    private val client = OkHttpClient.Builder()
+        .addInterceptor(CsrfInterceptor())
+        .build()
 
     val instance: ApiService by lazy {
         val retrofit = Retrofit.Builder()
@@ -22,7 +26,6 @@ object RetrofitClient {
 
     fun getAuthHeader(username: String, password: String): String {
         val credentials = "$username:$password"
-        val authHeader = "Basic " + Base64.getEncoder().encodeToString(credentials.toByteArray())
-        return authHeader
+        return "Basic " + Base64.getEncoder().encodeToString(credentials.toByteArray())
     }
 }
