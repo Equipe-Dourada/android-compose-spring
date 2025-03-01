@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.stp.pacientes.ui.screens.HomeScreen
 import com.stp.pacientes.ui.screens.LoginScreen
+import com.stp.pacientes.ui.screens.PacienteDetailScreen
 import com.stp.pacientes.ui.theme.PacientesTheme
 
 class MainActivity : ComponentActivity() {
@@ -27,6 +28,11 @@ fun AppNavigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "login") {
         composable("login") { LoginScreen(navController) }
-        composable("home") { HomeScreen() }
+        composable("home") { HomeScreen(navController) }
+        composable("addPaciente") { }
+        composable("pacienteDetail/{cpf}") { backStackEntry ->
+            val cpf = backStackEntry.arguments?.getString("cpf") ?: ""
+            PacienteDetailScreen(navController, cpf)
+        }
     }
 }
