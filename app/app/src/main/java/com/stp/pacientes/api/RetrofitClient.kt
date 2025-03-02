@@ -7,15 +7,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
     private const val BASE_URL = "http://10.0.2.2:8080/api/"
 
-    var csrfToken: String? = null
-
     private lateinit var username: String
     private lateinit var password: String
 
     private val client: OkHttpClient by lazy {
         OkHttpClient.Builder()
             .authenticator(BasicAuthenticator(username, password))
-            .addInterceptor(CsrfInterceptor())
             .build()
     }
 

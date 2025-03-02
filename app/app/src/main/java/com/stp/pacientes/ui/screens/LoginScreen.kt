@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -29,62 +30,70 @@ fun LoginScreen(navController: NavController) {
     var password by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = "Sistema de Pacientes", style = MaterialTheme.typography.headlineMedium)
-        Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(
-            value = username,
-            onValueChange = { username = it },
-            label = { Text("Username") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = {
-                RetrofitClient.setCredentials(username, password)
-                CoroutineScope(Dispatchers.Main).launch {
-                    RetrofitClient.instance.login().enqueue(object : Callback<Void> {
-                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                            CoroutineScope(Dispatchers.Main).launch {
-                                if (response.isSuccessful) {
-                                    val csrfToken = response.headers()["X-CSRF-TOKEN"]
-                                    if (csrfToken != null) {
-                                        RetrofitClient.csrfToken = csrfToken
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Sistema de Pacientes",
+                style = MaterialTheme.typography.headlineLarge,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(bottom = 32.dp)
+            )
+
+            OutlinedTextField(
+                value = username,
+                onValueChange = { username = it },
+                label = { Text("Nome de usuário") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = { Text("Senha") },
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Button(
+                onClick = {
+                    RetrofitClient.setCredentials(username, password)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        RetrofitClient.instance.login().enqueue(object : Callback<Void> {
+                            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    if (response.isSuccessful) {
+                                        Toast.makeText(context, "Login bem-sucedido", Toast.LENGTH_SHORT).show()
+                                        navController.navigate("home")
+                                    } else {
+                                        Toast.makeText(context, "Falha no login", Toast.LENGTH_LONG).show()
                                     }
-                                    Toast.makeText(context, "Login bem-sucedido", Toast.LENGTH_SHORT).show()
-                                    navController.navigate("home")
-                                } else {
-                                    Toast.makeText(context, "Falha no login", Toast.LENGTH_LONG).show()
                                 }
                             }
-                        }
 
-                        override fun onFailure(call: Call<Void>, t: Throwable) {
-                            CoroutineScope(Dispatchers.Main).launch {
-                                Toast.makeText(context, "Erro: ${t.message}", Toast.LENGTH_LONG).show()
+                            override fun onFailure(call: Call<Void>, t: Throwable) {
+                                CoroutineScope(Dispatchers.Main).launch {
+                                    Toast.makeText(context, "Erro: ${t.message}", Toast.LENGTH_LONG).show()
+                                }
                             }
-                        }
-                    })
-                }
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Entrar")
+                        })
+                    }
+                },
+                modifier = Modifier.fillMaxWidth(),
+                contentPadding = PaddingValues(16.dp)
+            ) {
+                Text("Entrar", style = MaterialTheme.typography.titleMedium)
+            }
         }
     }
 }

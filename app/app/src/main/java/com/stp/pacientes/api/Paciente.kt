@@ -4,14 +4,12 @@ data class Endereco(
     val numero: String,
     val cep: String,
     val rua: String,
-    val complemento: String,
     val bairro: String,
     val cidade: String,
     val estado: String
 )
 
 data class Ficha(
-    val id: Int,
     val medicamentos: String,
     val historico: String,
     val alergias: String
