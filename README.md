@@ -81,3 +81,6 @@ json {
         "alergias": "Nenhuma"
     }
 }
+# Licença
+
+Este projeto está licenciado sob a Licença MIT - consulte o arquivo LICENSE para mais detalhes.
