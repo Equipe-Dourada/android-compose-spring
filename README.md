@@ -52,6 +52,9 @@ Estrutura do Projeto
     RetrofitClient: Singleton para configurar e gerenciar as chamadas à API.
 
 Exemplos de Tela
+Tela Login
+![image](https://github.com/user-attachments/assets/c8b06c4b-cd20-4cbd-88c8-095e23aa625e)
+
 Detalhes do Paciente
 
 A tela de detalhes exibe todas as informações sobre o paciente, como nome, CPF, telefone, email, endereço e histórico médico. Além disso, há opções para excluir ou atualizar os dados do paciente.
