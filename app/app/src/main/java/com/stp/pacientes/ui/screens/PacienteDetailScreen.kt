@@ -2,7 +2,9 @@ package com.stp.pacientes.ui.screens
 
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -11,8 +13,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.stp.pacientes.api.Paciente
 import com.stp.pacientes.api.RetrofitClient
@@ -22,6 +26,8 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
+private val PrimaryColor = Color(0xFF692E96)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,12 +56,13 @@ fun PacienteDetailScreen(navController: NavController, cpf: String) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Detalhes do Paciente") },
+                title = { Text("Detalhes do Paciente", fontSize = 20.sp, color = Color.White) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Voltar")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Voltar", tint = Color.White)
                     }
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = PrimaryColor)
             )
         }
     ) { paddingValues ->
@@ -68,49 +75,25 @@ fun PacienteDetailScreen(navController: NavController, cpf: String) {
             ) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                    shape = RoundedCornerShape(16.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                    colors = CardDefaults.cardColors(containerColor = PrimaryColor.copy(alpha = 0.1f))
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        Text(text = "Informações Pessoais", style = MaterialTheme.typography.titleMedium)
+                        Text(text = "Informações Pessoais", fontSize = 18.sp, color = PrimaryColor)
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = "Nome: ${p.nome}", style = MaterialTheme.typography.bodyLarge)
+                        Text(text = "Nome: ${p.nome}", fontSize = 18.sp)
                         Text(text = "CPF: ${p.cpf}")
                         Text(text = "Telefone: ${p.telefone}")
                         Text(text = "Email: ${p.email}")
                     }
                 }
-                Spacer(modifier = Modifier.height(16.dp))
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(text = "Endereço", style = MaterialTheme.typography.titleMedium)
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = "${p.endereco.rua}, ${p.endereco.numero}")
-                        Text(text = "${p.endereco.bairro}, ${p.endereco.cidade} - ${p.endereco.estado}")
-                        Text(text = "CEP: ${p.endereco.cep}")
-                    }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-                ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(text = "Histórico Médico", style = MaterialTheme.typography.titleMedium)
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = "Alergias: ${p.ficha.alergias}")
-                        Text(text = "Histórico: ${p.ficha.historico}")
-                        Text(text = "Medicamentos: ${p.ficha.medicamentos}")
-                    }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(24.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
                 ) {
-                    Button(
+                    ExtendedFloatingActionButton(
                         onClick = {
                             CoroutineScope(Dispatchers.IO).launch {
                                 RetrofitClient.instance.deletePaciente(p.cpf).enqueue(object : Callback<Void> {
@@ -133,21 +116,18 @@ fun PacienteDetailScreen(navController: NavController, cpf: String) {
                                 })
                             }
                         },
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
-                        modifier = Modifier.padding(8.dp)
-                    ) {
-                        Icon(Icons.Filled.Delete, contentDescription = "Excluir")
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Excluir")
-                    }
-                    Button(
+                        containerColor = MaterialTheme.colorScheme.error,
+                        shape = RoundedCornerShape(16.dp),
+                        icon = { Icon(Icons.Filled.Delete, contentDescription = "Excluir", tint = Color.White) },
+                        text = { Text("Excluir", color = Color.White) }
+                    )
+                    ExtendedFloatingActionButton(
                         onClick = { navController.navigate("atualizarPaciente/${p.cpf}") },
-                        modifier = Modifier.padding(8.dp)
-                    ) {
-                        Icon(Icons.Filled.Edit, contentDescription = "Atualizar")
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("Atualizar")
-                    }
+                        shape = RoundedCornerShape(16.dp),
+                        containerColor = PrimaryColor,
+                        icon = { Icon(Icons.Filled.Edit, contentDescription = "Atualizar", tint = Color.White) },
+                        text = { Text("Atualizar", color = Color.White) }
+                    )
                 }
             }
         } ?: Box(
