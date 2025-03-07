@@ -6,7 +6,7 @@
     JULIO CESAR BATISTA PIRES
 # android-compose-spring
 Projeto Final de Programação Mobile com Android Avançado
-Este é um aplicativo Android desenvolvido usando Jetpack Compose para gerenciar informações de pacientes, incluindo visualização, atualização e exclusão de dados. O aplicativo se comunica com uma API backend para realizar operações CRUD (Criar, Ler, Atualizar e Excluir) relacionadas aos pacientes.
+Este é um aplicativo Android desenvolvido usando Jetpack Compose para gerenciar informações de pacientes, incluindo visualização, atualização e exclusão de dados. Para fazer login no sistema, utilizar "usuario" e "senha123". O aplicativo se comunica com uma API backend para realizar operações CRUD (Criar, Ler, Atualizar e Excluir) relacionadas aos pacientes.
 
 ## Funcionalidades
 
@@ -14,6 +14,8 @@ Este é um aplicativo Android desenvolvido usando Jetpack Compose para gerenciar
 - **Atualização de Dados**: Permite editar os dados de um paciente e atualizar as informações no backend.
 - **Exclusão de Dados**: Exclui um paciente do banco de dados.
 - **Carregamento e Exibição de Dados**: Utiliza Retrofit para realizar requisições HTTP e obter ou modificar os dados do paciente.
+- **Salvamento dos Dados**: Os dados são salvos em um banco de dados.
+
 
 ## Tecnologias Utilizadas
 
@@ -22,11 +24,12 @@ Este é um aplicativo Android desenvolvido usando Jetpack Compose para gerenciar
 - **Retrofit**: Biblioteca para facilitar as requisições HTTP para interagir com APIs REST.
 - **Coroutines**: Para realizar tarefas assíncronas no Android.
 - **Material Design**: Para componentes de UI modernos e consistentes.
-
+- **Java Spring**: API BackEnd
+  
 ## Requisitos
 
 - **Android Studio** com suporte para Kotlin e Jetpack Compose.
-- **MinSDK**: 21 ou superior.
+- **MinSDK**: Android 15 (API 35) ou superior.
 - **Conexão com a internet**: Necessária para comunicação com a API.
 
 ## Como Rodar o Projeto
@@ -97,4 +100,4 @@ json {
 }
 # Licença
 
-Este projeto está licenciado sob a Licença MIT - consulte o arquivo LICENSE para mais detalhes.
+Este projeto está licenciado sob a Licença AGPL - 3.0 - consulte o arquivo LICENSE para mais detalhes.
