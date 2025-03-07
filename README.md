@@ -55,14 +55,23 @@ Exemplos de Tela
 
 Tela Login
 
-![image](https://github.com/user-attachments/assets/c8b06c4b-cd20-4cbd-88c8-095e23aa625e)
+![Imagem do WhatsApp de 2025-03-06 à(s) 22 43 21_95516ef1](https://github.com/user-attachments/assets/033fb7d6-a616-48dd-9690-462acb88b597)
+
+Tela de Cadastro de Paciente
+
+![Imagem do WhatsApp de 2025-03-06 à(s) 22 43 20_f0907c4a](https://github.com/user-attachments/assets/d51e176a-3d54-403f-863c-e2bd870939f4)
+
 
 Detalhes do Paciente
 
 A tela de detalhes exibe todas as informações sobre o paciente, como nome, CPF, telefone, email, endereço e histórico médico. Além disso, há opções para excluir ou atualizar os dados do paciente.
 Atualizar Paciente
+![Imagem do WhatsApp de 2025-03-06 à(s) 22 43 21_968e0ba7](https://github.com/user-attachments/assets/ed77f814-f0d0-4cf9-9e80-9b49bd5e1f7c)
+
 
 A tela de atualização permite ao usuário editar as informações do paciente e salvar as alterações no backend.
+![Imagem do WhatsApp de 2025-03-06 à(s) 22 43 20_ef55d265](https://github.com/user-attachments/assets/59744760-1981-4fb8-b53b-5d0af0fa0288)
+
 
 # Para testar a API
 json {
